@@ -53,14 +53,6 @@ def registerPage(request):
 			user = form.save()
 			username = form.cleaned_data.get('username')
 
-			group = Group.objects.get(name='customer')
-			user.groups.add(group)
-			#Added username after video because of error returning customer name if not added
-			Customer.objects.create(
-				user=user,
-				name=user.username,
-				)
-
 			messages.success(request, 'Account was created for ' + username)
 
 			return redirect('login')
@@ -132,7 +124,7 @@ def updateOrder(request,pk):
 
 	context = {'form':form}
 
-	return render(request, 'accounts/order_form.html',context)
+	return render(request, 'accounts/update_order.html',context)
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
